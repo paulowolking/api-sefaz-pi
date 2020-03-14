@@ -26,9 +26,13 @@ Route::group(['namespace' => 'Api', 'middleware' => 'api'], function (Router $ro
 
     Route::group(['middleware' => 'auth:api'], function (Router $route) {
 
-        $route->get('user', 'UserController@me');
-        $route->get('user/{userId}', 'UserController@show');
-        $route->put('user', 'UserController@update');
+        Route::group(['prefix' => 'user'], function (Router $route) {
+
+            $route->get('/', 'UserController@me');
+            $route->get('/{userId}', 'UserController@show');
+            $route->put('', 'UserController@update');
+            $route->post('/fcm-token', 'UserController@fcmTokenRegister');
+        });
     });
 
     Route::group(['prefix' => 'password'], function (Router $route) {

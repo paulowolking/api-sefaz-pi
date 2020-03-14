@@ -48,6 +48,8 @@ use Laravel\Passport\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\FcmToken[] $fcmTokens
+ * @property-read int|null $fcm_tokens_count
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -88,6 +90,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = ['photo_url'];
 
     /**
+     * Email verification
      *
      */
     public function sendEmailVerificationNotification()
@@ -96,6 +99,8 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * User roles
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function roles()
@@ -104,6 +109,8 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Verify user roles
+     *
      * @param $role
      * @return mixed
      */
@@ -113,6 +120,8 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Photo Url
+     *
      * @return string
      */
     public function getPhotoUrlAttribute()
@@ -121,11 +130,24 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * FCM tokens
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function fcmTokens()
     {
         return $this->hasMany(FcmToken::class);
+    }
+
+    /**
+     * Route notifications for the FCM channel.
+     *
+     * @param  \Illuminate\Notifications\Notification  $notification
+     * @return string
+     */
+    public function routeNotificationForFcm($notification)
+    {
+        return $this->fcmTokens->pluck('token')->toArray();
     }
 
 }

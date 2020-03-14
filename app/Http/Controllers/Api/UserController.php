@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\FcmToken;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -13,16 +14,35 @@ use Intervention\Image\Facades\Image;
 
 class UserController extends Controller
 {
+    /**
+     * Show autheticated user
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function me(Request $request)
     {
         return $request->user();
     }
 
+    /**
+     * Show user by Id
+     *
+     * @param Request $request
+     * @param $userId
+     * @return User|User[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     */
     public function show(Request $request, $userId)
     {
         return User::findOrFail($userId);
     }
 
+    /**
+     * Create User
+     *
+     * @param CreateUserRequest $request
+     * @return User
+     */
     public function store(CreateUserRequest $request)
     {
         $user_data = $request->only('email','name','password');
@@ -35,6 +55,12 @@ class UserController extends Controller
         return $user;
     }
 
+    /**
+     * Update User
+     *
+     * @param UpdateUserRequest $request
+     * @return mixed
+     */
     public function update(UpdateUserRequest $request)
     {
         $user_data = $request->only('email','name','password');
@@ -45,6 +71,13 @@ class UserController extends Controller
         return $user;
     }
 
+    /**
+     * Save User
+     *
+     * @param User $user
+     * @param $data
+     * @param $photo
+     */
     private function save(User $user, $data, $photo)
     {
         $user->email = $data['email'];
@@ -61,5 +94,20 @@ class UserController extends Controller
             Storage::put($path, Image::make($photo)->fit(300, 300)->stream());
         }
         $user->save();
+    }
+
+    /**
+     * Register FcmToken by User
+     *
+     * @param Request $request
+     * @return FcmToken|\Illuminate\Database\Eloquent\Model
+     */
+    public function fcmTokenRegister(Request $request)
+    {
+        return FcmToken::create([
+            'user_id' => $request->user()->id,
+            'token' => $request->get('token'),
+            'platform' => $request->get('platform'),
+        ]);
     }
 }

@@ -1,12 +1,50 @@
-/node_modules
-/public/hot
-/public/storage
-/storage/*.key
-/vendor
-.env
-.env.backup
-.phpunit.result.cache
-Homestead.json
-Homestead.yaml
+# Created by https://www.gitignore.io/api/laravel
+# Edit at https://www.gitignore.io/?templates=laravel
+
+### Laravel ###
+/vendor/
+node_modules/
 npm-debug.log
 yarn-error.log
+
+# Laravel 4 specific
+bootstrap/compiled.php
+app/storage/
+
+# Laravel 5 & Lumen specific
+public/storage
+public/hot
+storage/*.key
+.env
+Homestead.yaml
+Homestead.json
+/.vagrant
+.phpunit.result.cache
+
+# ignore log files and databases
+*.log
+*.sqlite
+*.sqlite-journal
+
+# ignore OS generated files
+ehthumbs.db
+Thumbs.db
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# ignore Editor files
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+_ide_helper.php
+/.idea
+/.vscode
+# Eclipse project files
+.buildpath
+.project
+.settings/
+
+# End of https://www.gitignore.io/api/laravel
