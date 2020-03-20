@@ -7,6 +7,7 @@ use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\FcmToken;
 use App\Models\User;
+use App\Services\FirebaseService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -80,8 +81,12 @@ class UserController extends Controller
      */
     private function save(User $user, $data, $photo)
     {
-        $user->email = $data['email'];
-        $user->name = $data['name'];
+        if (isset($data['name'])) {
+            $user->name = $data['name'];
+        }
+        if (isset($data['email'])) {
+            $user->email = $data['email'];
+        }        
         if (isset($data['password'])) {
             $user->password = Hash::make($data['password']);
         }
@@ -109,5 +114,17 @@ class UserController extends Controller
             'token' => $request->get('token'),
             'platform' => $request->get('platform'),
         ]);
+    }
+
+    /**
+     * Send user notification
+     *
+     * @param Request $request
+     * @param FirebaseService $firebaseService
+     * @return array
+     */
+    public function notify(Request $request, FirebaseService $firebaseService)
+    {
+        return $firebaseService->notify($request->all());
     }
 }

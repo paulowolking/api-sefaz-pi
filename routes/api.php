@@ -32,6 +32,9 @@ Route::group(['namespace' => 'Api', 'middleware' => 'api'], function (Router $ro
             $route->get('/{userId}', 'UserController@show');
             $route->put('', 'UserController@update');
             $route->post('/fcm-token', 'UserController@fcmTokenRegister');
+
+            $route->post('/notify', 'UserController@notify')
+                ->middleware('role:admin');
         });
     });
 

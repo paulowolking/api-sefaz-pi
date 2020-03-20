@@ -41,6 +41,10 @@ class SocialAccountsService
                 if (Storage::put($path, file_get_contents($providerUser->getAvatar()))) {
                     $user->photo = $path;
                 }
+                switch ($provider) {
+                    case "google": $user->google_id = $providerUser->getId(); break;
+                    case "facebook": $user->facebook_id = $providerUser->getId(); break;
+                }
                 $user->save();
             }
             return $user;

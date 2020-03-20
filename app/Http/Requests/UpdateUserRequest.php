@@ -25,8 +25,8 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3',
-            'email' => 'required|email|unique:users,email,'. $this->user()->id,
+            'name' => 'sometimes|min:3',
+            'email' => 'sometimes|email|unique:users,email,'. $this->user()->id,
             'password' => 'min:6',
             'current_password' => 'required_with:password|nullable|password:api',
             'photo' => 'mimes:jpeg,bmp,png',
