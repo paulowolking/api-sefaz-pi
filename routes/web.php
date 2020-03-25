@@ -21,6 +21,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/login', 'AuthController@login')->name('login');
+Route::post('/login', 'AuthController@logon');
+Route::get('/restrito', 'AuthController@restrito')->name('restrito');
+
+Route::get('deslogar', function () {
+    \Auth::logout();
+    return redirect('/');
+})->name('deslogar');
+
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')
     ->middleware('role:admin');
 
@@ -28,9 +37,12 @@ Route::group(['namespace' => 'Web', 'middleware' => 'auth'], function (Router $r
 
     Route::get('/home', 'HomeController@index')->name('home');
 
-    Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'role:admin'], function(Router $route) {
+    Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'role:admin'], function (Router $route) {
 
         $route->get('/dashboard', 'DashboardController@index')->name('dashboard');
+        $route->resource('/usuarios', 'UsuarioController');
+        $route->get('/perfil/', 'MinhaContaController@editar')->name('perfil.editar');
+        $route->post('/perfil/atualizar', 'MinhaContaController@atualizar')->name('perfil.atualizar');
 
     });
 

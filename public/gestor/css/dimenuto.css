@@ -1,0 +1,70 @@
+.pagination-tr {
+    padding: 0 !important; margin: 0 !important
+}
+.pagination-td {
+    width: 1%; padding: 0 5px !important; margin: 0 !important; border: none !important;
+    min-width: 50px;
+}
+.pagination-td:first-child {
+    padding: 0 10px 0 0 !important;
+}
+.pagination-td:last-child {
+    padding: 0 0 0 10px !important;
+}
+.pagination-link {
+    width: 100%; height: 100%; display: block; text-align: center; border: 0.5px solid rgb(61, 176, 233); text-decoration: none;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    color: rgb(61, 176, 233);
+    transition: 0.2s ease-in-out;
+}
+.pagination-link:hover {
+    color: white;
+    background-color: rgb(35, 154, 212);
+}
+.pagination-disabled, .pagination-disabled:hover {
+    border-color: #BBB;
+    background-color: #EEE;
+    color: #BBB;
+    cursor: default;
+}
+
+#preloader {
+    position: fixed; width: 100%; height: 100%; background-color: rgb(255,255,255,1); z-index: 9999
+}
+#preloader-image-container {
+    width: 220px; height: 114px; position: absolute; top: 50%; left: 50%; margin-top: -57px; margin-left: -110px;
+}
+
+.pagination-active {
+    background-color: rgb(35, 154, 212);
+    color: white;
+}
+
+/* TEMPLATE DE FILE UPLOAD */
+.scel-preview-item-input {
+    display: none;
+}
+
+.preview-zone-endereco {
+
+}
+
+.container-relative {
+    position: relative;
+}
+
+.scel-preview-item-delete-container {
+    position: absolute;
+}
+
+.scel-preview-item-label {
+    display: none;
+}
+
+.scel-preview-item-delete-button {
+    background-color: #F00;
+    border: none;
+    color: #FFF;
+}
