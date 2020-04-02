@@ -1,6 +1,5 @@
 @extends('admin.template')
-@section('titulo-corpo','Meu Perfil')
-@section('subtitulo-corpo','Informações')
+@section('titulo-corpo','Minha conta')
 
 @section('conteudo')
     <form method="post" enctype="multipart/form-data"
@@ -37,15 +36,6 @@
                                         <input class="form-control" type="password" id="password" name="password"
                                                placeholder="Senha">
                                         {!! $errors->first('password','<span class="help-block text-danger"><small>:message</small></span>')!!}
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="telefone">Telefone:</label>
-                                        <input class="form-control celular" id="telefone" name="telefone"
-                                               placeholder="Telefone"
-                                               value="{{old('telefone') ?: (isset($usuario) ? $usuario->telefone : null)}}">
-                                        {!! $errors->first('telefone','<span class="help-block text-danger"><small>:message</small></span>')!!}
                                     </div>
                                 </div>
                             </div>

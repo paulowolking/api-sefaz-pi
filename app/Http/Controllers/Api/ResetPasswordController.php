@@ -63,12 +63,12 @@ class ResetPasswordController extends Controller
             return response()->json([
                 'message' => 'O código de recuperação de senha é inválido'
             ], 404);
-        if ($passwordReset->created_at->addMinutes(720)->isPast()) {
-            $passwordReset->delete();
-            return response()->json([
-                'message' => 'O código de recuperação de senha é inválido'
-            ], 404);
-        }
+//        if ($passwordReset->created_at->addMinutes(720)->isPast()) {
+//            $passwordReset->delete();
+//            return response()->json([
+//                'message' => 'O código de recuperação de senha é inválido'
+//            ], 404);
+//        }
         return response()->json($passwordReset);
     }
 

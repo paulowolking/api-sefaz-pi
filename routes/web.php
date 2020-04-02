@@ -21,15 +21,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', 'AuthController@login')->name('login');
-Route::post('/login', 'AuthController@logon');
-Route::get('/restrito', 'AuthController@restrito')->name('restrito');
-
-Route::get('deslogar', function () {
-    \Auth::logout();
-    return redirect('/');
-})->name('deslogar');
-
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')
     ->middleware('role:admin');
 

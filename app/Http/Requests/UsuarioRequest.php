@@ -27,16 +27,15 @@ class UsuarioRequest extends FormRequest
         $rules = [
             'nome' => 'required',
             'email' => 'required|email|unique:users',
-            'permissao' => 'required|exists:roles,id',
+            'funcao' => 'sometimes|nullable|exists:roles,id',
+            'senha' => 'required|min:6'
         ];
 
-        if ($this->route('usuario')) //Update
-        {
+        if ($this->route('usuario')) { //Update
             $rules['email'] = [
                 'required', Rule::unique('users')->ignore($this->route('usuario'))
             ];
-        } else {
-            $rules['password'] = ['password' => 'required'];
+            $rules['senha'] = 'sometimes|nullable|min:6';
         }
 
         return $rules;

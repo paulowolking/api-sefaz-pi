@@ -15,21 +15,21 @@ class UsuarioController extends Controller
 {
     public function index(Request $request)
     {
-        $usuarios = User::query();
-        $usuarios->where('id', '!=', $request->user()->id);
+        $users = User::query();
+        $users->where('id', '!=', $request->user()->id);
 
         if ($nome = $request->get('nome')) {
-            $usuarios->where('name', 'LIKE', '%' . $nome . '%')
+            $users->where('name', 'LIKE', '%' . $nome . '%')
                 ->orWhere('email', 'LIKE', '%' . $nome . '%');
         }
 
-        $usuarios = $usuarios->orderBy('created_at', 'desc')
+        $users = $users->orderBy('created_at', 'desc')
             ->paginate(10);
 
         $roles = Role::all();
 
         return view('admin.usuario.index')
-            ->with('usuarios', $usuarios)
+            ->with('usuarios', $users)
             ->with('roles', $roles)
             ->with('request', $request);
     }
@@ -41,7 +41,8 @@ class UsuarioController extends Controller
 
     public function store(UsuarioRequest $request)
     {
-        $this->salvarUsuario($request);
+        $this->save($request->all());
+
         return Redirect::back()
             ->with('message',
                 [
@@ -52,13 +53,15 @@ class UsuarioController extends Controller
 
     public function update(UsuarioRequest $request, $id)
     {
-        $usuario = User::find($id);
-        $this->salvarUsuario($request, $usuario);
+        $user = User::find($id);
+
+        $this->save($request->all(), $user);
+
         return Redirect::back()
             ->with('message',
                 [
                     "tipo" => "success",
-                    "mensagem" => "Usuário #" . $usuario->id . " foi atualizado com sucesso"
+                    "mensagem" => "Usuário #" . $user->id . " foi atualizado com sucesso"
                 ]);
     }
 
@@ -67,30 +70,31 @@ class UsuarioController extends Controller
 
     }
 
-    private function salvarUsuario(UsuarioRequest $request, User $usuario = null)
+    private function save($data, User $user = null)
     {
-        if ($usuario == null)
-            $usuario = new User();
+        if ($user == null)
+            $user = new User();
 
-        $usuario->name = $request->get('nome');
-        $usuario->email = $request->get('email');
+        $user->name = $data['nome'];
+        $user->email = $data['email'];
 
-        if ($request->get('password')) {
-            $usuario->password = Hash::make($request->get('password'));
+        if (isset($data['senha'])) {
+            $user->password = Hash::make($data['senha']);
         }
 
-        $usuario->save();
-        $usuario->roles()->sync($request->get('permissao'));
+        $user->roles()->sync($data['funcao']);
 
-        return $usuario;
+        $user->save();
+
+        return $user;
     }
 
     public function destroy($id)
     {
-        $usuario = User::find($id);
-        $usuario->email = Carbon::now();
-        $usuario->save();
-        $usuario->delete();
+        $user = User::find($id);
+        $user->email = Carbon::now();
+        $user->save();
+        $user->delete();
 
         return redirect(route('usuarios.index'))
             ->with('message',
