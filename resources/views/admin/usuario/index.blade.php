@@ -62,7 +62,12 @@
                                 <tr>
                                     <td>{{ $model->id }}</td>
                                     <td>{{ $model->name }}</td>
-                                    <td>{{ $model->email }}</td>
+                                    <td>
+                                        {{ $model->email }}
+                                        @if($model->email_verified_at) <span class="badge badge-success">Verificado</span>
+                                        @else <span class="badge badge-warning">Não verificado</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         @if($model->roles->count())
                                             {{ strtoupper($model->roles->implode('name',', ')) }}

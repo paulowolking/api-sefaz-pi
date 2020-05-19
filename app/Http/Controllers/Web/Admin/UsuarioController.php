@@ -16,15 +16,15 @@ class UsuarioController extends Controller
     public function index(Request $request)
     {
         $users = User::query();
-        $users->where('id', '!=', $request->user()->id);
 
         if ($nome = $request->get('nome')) {
             $users->where('name', 'LIKE', '%' . $nome . '%')
                 ->orWhere('email', 'LIKE', '%' . $nome . '%');
         }
 
-        $users = $users->orderBy('created_at', 'desc')
-            ->paginate(10);
+        $users->orderBy('created_at', 'desc');
+
+        $users = $users->paginate(10);
 
         $roles = Role::all();
 
