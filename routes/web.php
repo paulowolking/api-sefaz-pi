@@ -19,7 +19,7 @@ Auth::routes(['register' => false, 'verify' => true]);
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')
     ->middleware('role:admin');
