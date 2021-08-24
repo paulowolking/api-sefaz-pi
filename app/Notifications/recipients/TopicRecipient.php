@@ -6,7 +6,7 @@
  * Time: 23:28
  */
 
-namespace App\Notifications;
+namespace App\Notifications\recipients;
 
 use Illuminate\Notifications\Notifiable;
 

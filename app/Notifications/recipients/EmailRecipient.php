@@ -6,9 +6,8 @@
  * Time: 23:28
  */
 
-namespace App\Notifications;
+namespace App\Notifications\recipients;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Notifications\Notifiable;
 
 class EmailRecipient

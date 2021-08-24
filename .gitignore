@@ -46,5 +46,6 @@ _ide_helper.php
 .buildpath
 .project
 .settings/
+composer.lock
 
 # End of https://www.gitignore.io/api/laravel

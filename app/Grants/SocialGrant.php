@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Auth\Grants;
+namespace App\Grants;
 
 use App\Services\SocialUserResolver;
 use League\OAuth2\Server\RequestEvent;

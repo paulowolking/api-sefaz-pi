@@ -10,14 +10,15 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Notifications\GenericNotification;
-use App\Notifications\TopicRecipient;
+use App\Notifications\recipients\TopicRecipient;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class FirebaseService
 {
     public function notify(array $dados)
     {
-        $validator = \Validator::make($dados, [
+        $validator = Validator::make($dados, [
             'topics' => 'required_without:user_ids|array',
             'user_ids' => 'required_without:topics|array',
             'title' => 'required',
