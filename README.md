@@ -7,6 +7,22 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+## Comandos úteis
+
+- composer install
+- php artisan key:generate
+- php artsan migrate
+- php artisan db:seed
+
+<h4>obs: Você deve criar um arquivo "sefazpi.sqlite" na pasta database (de acordo com .env o nome), com isso não tem necessidade de configurar um banco de dados. Mas caso você queira fazer isso, é necessário alterar variáveis no arquivo .env</h4>
+<h4>obs: Existe um arquivo .env.example, você pode copiar e colar esse arquivo sem o ".example"</h4>
+<h4>obs: Você pode deletar e criar o arquivo sefazpi.sqlite, sempre que quiser limpar o banco de dados. </h4>
+<h4>Abaixo sobre a documentação do Laravel</h4>
+
+![sefazpi](https://user-images.githubusercontent.com/6643514/150248699-f0344242-b3b2-4868-8de1-016f624270df.PNG)
+
+
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
