@@ -11,7 +11,7 @@
 
 - composer install
 - php artisan key:generate
-- php artsan migrate
+- php artisan migrate
 - php artisan db:seed
 
 <h4>obs: Você deve criar um arquivo "sefazpi.sqlite" na pasta database (de acordo com .env o nome), com isso não tem necessidade de configurar um banco de dados. Mas caso você queira fazer isso, é necessário alterar variáveis no arquivo .env</h4>
