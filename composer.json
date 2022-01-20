@@ -19,7 +19,9 @@
         "laravel/socialite": "^4.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
-        "rap2hpoutre/laravel-log-viewer": "^1.4"
+        "rap2hpoutre/laravel-log-viewer": "^1.4",
+        "ext-curl": "*",
+        "ext-json": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

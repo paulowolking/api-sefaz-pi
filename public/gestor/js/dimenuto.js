@@ -11,6 +11,7 @@ $(window).on('load', function () {
     $(".cep").mask("99999-999", {autoclear: true});
     $(".data").mask("99/99/9999", {autoclear: true});
     $(".mascara_moeda").mask('#.##0,00', {reverse: true});
+    $(".data-sefaz").mask("9999/99", {autoclear: true});
 
     $('.select-multiple').select2();
 });

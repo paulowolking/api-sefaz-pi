@@ -19,6 +19,6 @@ class RoleAccess
         if (Auth::user()->hasRole($role)) {
             return $next($request);
         }
-        return redirect('home');
+        return redirect('dashboard');
     }
 }

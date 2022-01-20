@@ -6,114 +6,165 @@
     <div class="row">
         <div class="col-12">
             <div class="card-box">
-                <h4 class="header-title mb-4">Account Overview</h4>
+                <h4 class="header-title mb-4">Login Sefaz</h4>
 
-                <div class="row">
-                    <div class="col-sm-6 col-lg-6 col-xl-3">
-                        <div class="card-box mb-0 widget-chart-two">
-                            <div class="float-right">
-                                <input data-plugin="knob" data-width="80" data-height="80" data-linecap=round
-                                       data-fgColor="#0acf97" value="37" data-skin="tron" data-angleOffset="180"
-                                       data-readOnly=true data-thickness=".1"/>
+                <form method="post"
+                      action="{{route('dashboard.user.sefaz')}}">
+                    {{ csrf_field() }}
+                    <div class="row col-6">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="user">Usuario:</label>
+                                <input type="text" class="form-control" id="user" name="user"
+                                       value="{{$request->user()->user_sefaz ?? ''}}"
+                                       placeholder="Usuário">
+                                {!! $errors->first('user','<span class="help-block text-danger"><small>:message</small></span>')!!}
                             </div>
-                            <div class="widget-chart-two-content">
-                                <p class="text-muted mb-0 mt-2">Daily Sales</p>
-                                <h3 class="">$35,715</h3>
-                            </div>
+                        </div>
 
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="password">Senha:</label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                       value="{{$request->user()->password_sefaz ?? ''}}"
+                                       placeholder="Senha">
+                                {!! $errors->first('passwordpassword','<span class="help-block text-danger"><small>:message</small></span>')!!}
+                            </div>
+                        </div>
+
+                        <div class="col-12 text-right">
+                            <button class="btn btn-success waves-light waves-effect">Salvar</button>
                         </div>
                     </div>
-
-                    <div class="col-sm-6 col-lg-6 col-xl-3">
-                        <div class="card-box mb-0 widget-chart-two">
-                            <div class="float-right">
-                                <input data-plugin="knob" data-width="80" data-height="80" data-linecap=round
-                                       data-fgColor="#f9bc0b" value="92" data-skin="tron" data-angleOffset="180"
-                                       data-readOnly=true data-thickness=".1"/>
-                            </div>
-                            <div class="widget-chart-two-content">
-                                <p class="text-muted mb-0 mt-2">Sales Analytics</p>
-                                <h3 class="">$97,511</h3>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 col-lg-6 col-xl-3">
-                        <div class="card-box mb-0 widget-chart-two">
-                            <div class="float-right">
-                                <input data-plugin="knob" data-width="80" data-height="80" data-linecap=round
-                                       data-fgColor="#f1556c" value="14" data-skin="tron" data-angleOffset="180"
-                                       data-readOnly=true data-thickness=".1"/>
-                            </div>
-                            <div class="widget-chart-two-content">
-                                <p class="text-muted mb-0 mt-2">Statistics</p>
-                                <h3 class="">$954</h3>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 col-lg-6 col-xl-3">
-                        <div class="card-box mb-0 widget-chart-two">
-                            <div class="float-right">
-                                <input data-plugin="knob" data-width="80" data-height="80" data-linecap=round
-                                       data-fgColor="#2d7bf4" value="60" data-skin="tron" data-angleOffset="180"
-                                       data-readOnly=true data-thickness=".1"/>
-                            </div>
-                            <div class="widget-chart-two-content">
-                                <p class="text-muted mb-0 mt-2">Total Revenue</p>
-                                <h3 class="">$32,540</h3>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+                </form>
                 <!-- end row -->
             </div>
         </div>
     </div>
     <!-- end row -->
 
-    <div class="row">
-        <div class="col-xl-6">
-            <div class="card-box">
-                <h4 class="header-title">Order Overview</h4>
+    @if($request->user()->user_sefaz and $request->user()->password_sefaz)
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card-box">
+                    <h4 class="header-title">Buscar clientes</h4>
+                    <form method="post"
+                          action="{{route('dashboard.cliente')}}">
+                        {{ csrf_field() }}
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nome">CNPJ:</label>
+                                <input type="text" class="form-control cnpj" id="cnpj" name="cnpj"
+                                       value="{{$request->get('cnpj') ?? ''}}"
+                                       placeholder="CNPJ">
+                                {!! $errors->first('cnpj','<span class="help-block text-danger"><small>:message</small></span>')!!}
+                            </div>
+                        </div>
 
-                <div id="website-stats" style="height: 350px;" class="flot-chart mt-5"></div>
+                        <div class="col-12 text-right">
+                            <button class="btn btn-success waves-light waves-effect">Buscar</button>
+                        </div>
+                        <hr>
+                    </form>
 
-            </div>
-        </div>
-
-        <div class="col-xl-6">
-            <div class="card-box">
-                <h4 class="header-title">Sales Overview</h4>
-
-                <div id="combine-chart">
-                    <div id="combine-chart-container" class="flot-chart mt-5" style="height: 350px;">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title mb-3">Resultado</h4>
+                                    <div class="panel-body">
+                                        <div class="text-left text-muted font-13">
+                                            <h4 class="mb-2"><strong>CPF/CNPJ :</strong>
+                                                <span>{{$data['cpfCnpj'] ?? ''}}</span></h4>
+                                            <h4 class="mb-2"><strong>Nome Fantasia :</strong>
+                                                <span>{{$data['nomeFantasia'] ?? ''}}</span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
 
+            <div class="col-xl-6">
+                <div class="card-box">
+                    <h4 class="header-title">Buscar Pagamentos</h4>
+                    <form method="post"
+                          action="{{route('dashboard.pagamento')}}">
+                        {{ csrf_field() }}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="nome">CPF/CNPJ:</label>
+                                    <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj"
+                                           value="{{$request->get('cpf_cnpj') ?? ''}}"
+                                           placeholder="CPF/CNPJ">
+                                    {!! $errors->first('cpf_cnpj','<span class="help-block text-danger"><small>:message</small></span>')!!}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="start-date">Data Início:</label>
+                                    <input type="text" class="form-control data-sefaz" id="start-date" name="start-date"
+                                           value="{{$request->get('start-date') ?? ''}}"
+                                           placeholder="yyyy/mm">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="end-date">Data Fim:</label>
+                                    <input type="text" class="form-control data-sefaz" id="end-date"
+                                           value="{{$request->get('end-date') ?? ''}}"
+                                           name="end-date"
+                                           placeholder="yyyy/mm">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-right">
+                            <button class="btn btn-success waves-light waves-effect">Buscar</button>
+                        </div>
+                        <hr>
+                    </form>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card-box">
+                                <div class="table-rep-plugin">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th data-priority="1">Data Início</th>
+                                                <th data-priority="1">Data Fim</th>
+                                                <th data-priority="1">Valor</th>
+                                                <th data-priority="1">Quantidade</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @if(isset($list))
+                                                @foreach( $list as $item )
+                                                    <tr>
+                                                        <td>{{ $item['dataInicio'] }}</td>
+                                                        <td>{{ $item['dataFim'] }}</td>
+                                                        <td>R$ {{ number_format($item['valor'], 2, ',', '.')  }}</td>
+                                                        <td>{{ $item['quantidade'] }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
-    <!-- end row -->
-
-@endsection
-
-@section('footer')
-
-    <!-- Flot chart -->
-    <script src="{{ asset("gestor/js/flot-chart/jquery.flot.min.js") }}"></script>
-    <script src="{{ asset("gestor/js/flot-chart/jquery.flot.time.js") }}"></script>
-    <script src="{{ asset("gestor/js/flot-chart/jquery.flot.tooltip.min.js") }}"></script>
-    <script src="{{ asset("gestor/js/flot-chart/jquery.flot.resize.js") }}"></script>
-    <script src="{{ asset("gestor/js/flot-chart/jquery.flot.pie.js") }}"></script>
-    <script src="{{ asset("gestor/js/flot-chart/jquery.flot.crosshair.js") }}"></script>
-    <script src="{{ asset("gestor/js/flot-chart/curvedLines.js") }}"></script>
-    <script src="{{ asset("gestor/js/flot-chart/jquery.flot.axislabels.js") }}"></script>
-
-    <!-- Dashboard Init -->
-    <script src="{{ asset("gestor/js/dashboard.init.js")}}"></script>
-
+        <!-- end row -->
+    @endif
 @endsection

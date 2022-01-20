@@ -82,9 +82,9 @@ class UsuarioController extends Controller
             $user->password = Hash::make($data['senha']);
         }
 
-        $user->roles()->sync($data['funcao']);
-
         $user->save();
+
+        $user->roles()->sync($data['funcao']);
 
         return $user;
     }
